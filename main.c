@@ -1,5 +1,6 @@
 #include "includes.c"
 #include "continuous.c"
+#include "paging.c"
 
 //It should be possible to use this memory as indicated in the main :
 int main() {
@@ -7,7 +8,7 @@ int main() {
     mem_t *mem      = initMem();
 
     //allocate some space 
-    address_t adr1  = myAlloc(mem, 5);
+/*     address_t adr1  = myAlloc(mem, 5);
     address_t adr2  = myAlloc(mem, 10);
     address_t adr3  = myAlloc(mem, 100);
 
@@ -30,6 +31,7 @@ int main() {
 
     address_t adr4  = myAlloc(mem, 7);
     displayHoles(mem);
+} */
 }
 
 // dynamically allocates a mem_t structure and initializes its content
@@ -42,7 +44,7 @@ mem_t *initMem(){
     memory->root->adr   = 0;
     memory->root->next  = NULL;
     memory->root->prev  = NULL;
-    memory->root->sz    = SIZE;
+    memory->root->sz    = MEM_SIZE;
 
     return memory;
 }

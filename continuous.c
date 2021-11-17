@@ -1,7 +1,7 @@
 #include "includes.c"
 
 // allocates space in bytes (byte_t) using First-Fit, Best-Fit or Worst-Fit
-address_t myAlloc(mem_t *mp, int sz){
+address_t myAllocConts(mem_t *mp, int sz){
     
     //first fit
     return firstFit(mp, sz);
@@ -108,7 +108,7 @@ address_t worstFit(mem_t* mp, int sz){
 
 
 // release memory that has already been allocated previously
-void myFree(mem_t *mp, address_t p, int sz){
+void myContFree(mem_t *mp, address_t p, int sz){
 
     //add this hole in the list
     hole_t* hole = mp->root;
@@ -156,7 +156,7 @@ void insertHole(mem_t* mp, hole_t* before, hole_t* after, address_t p, int sz){
 }
 
 // assign a value to a byte
-void myWrite(mem_t *mp, address_t p, byte_t val){
+/* void myWrite(mem_t *mp, address_t p, byte_t val){
    if(p >= 0 && p < SIZE){
         mp->mem[p] = val;
    }
@@ -169,7 +169,7 @@ byte_t myRead(mem_t *mp, address_t p){
     }
     return - 1;
     
-}
+} */
 
 
 //TOOLS FUNCTIONS
