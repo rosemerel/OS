@@ -1,8 +1,27 @@
 #include "includes.c"
 
+//definitions of functions
 // allocates space in bytes (byte_t) using First-Fit, Best-Fit or Worst-Fit
-address_t myAllocConts(mem_t *mp, int sz){
-    
+address_t myAllocCont(mem_t *mp, int sz);
+address_t firstFit(mem_t *mp, int sz);
+address_t bestFit(mem_t *mp, int sz);
+address_t worstFit(mem_t *mp, int sz);
+// release memory that has already been allocated previously
+void myContFree(mem_t *mp, address_t p, int sz);
+
+//Add a new hole into the list
+void addHole(mem_t* mp, hole_t* nextHole, address_t p, int sz);
+void insertHole(mem_t* mp, hole_t* prev, hole_t* next, address_t p, int sz);
+//enlarge a hole
+void enlargeHole(hole_t* hole, int sz, address_t newAdress);
+//delete a hole
+void deleteHole(mem_t* mp, hole_t* hole);
+//give the memory from a hole & create a new address
+address_t giveMemory(hole_t* hole, int sz);
+
+
+// allocates space in bytes (byte_t) using First-Fit, Best-Fit or Worst-Fit
+address_t myAllocCont(mem_t *mp, int sz){
     //first fit
     return firstFit(mp, sz);
     //best fit 

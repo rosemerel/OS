@@ -5,8 +5,10 @@
 #ifndef __MMU__H__
 #define __MMU__H__
 //#define SIZE        65536
-#define PAGE_SIZE   128
+#define PAGE_SIZE       128
 #define MEM_SIZE        32768
+#define PAGETABLE_SIZE  (MEM_SIZE/PAGE_SIZE)
+
 
 typedef short       byte_t; 
 typedef long int    address_t;
@@ -22,37 +24,18 @@ typedef struct hole {
 //MEMORY STRUCTURE
 typedef struct {
     //byte_t          mem[SIZE];
-    int             page_table[MEM_SIZE/PAGE_SIZE];
-    byte_t          physmem[MEM_SIZE];
+    int             page_table[PAGE_SIZE]; //page table
+    byte_t          physmem[MEM_SIZE]; //RAM
+    int             RAM_vector[MEM_SIZE/PAGE_SIZE]; //RAM vector
     hole_t*         root; // holes list
 } mem_t;
 
 //-----------------------TOOLS FUNCTIONS-----------------------
 
-//display the list of holes in memory
-void displayHoles(mem_t* mem);
-//Add a new hole into the list
-void addHole(mem_t* mp, hole_t* nextHole, address_t p, int sz);
-void insertHole(mem_t* mp, hole_t* prev, hole_t* next, address_t p, int sz);
-//enlarge a hole
-void enlargeHole(hole_t* hole, int sz, address_t newAdress);
-//delete a hole
-void deleteHole(mem_t* mp, hole_t* hole);
-//give the memory from a hole & create a new address
-address_t giveMemory(hole_t* hole, int sz);
+
 
 //-----------------------MAIN FUNCTIONS-----------------------
-// dynamically allocates a mem_t structure and initializes its content
-mem_t *initMem(); 
-// allocates space in bytes (byte_t) using First-Fit, Best-Fit or Worst-Fit
-address_t myAllocCont(mem_t *mp, int sz);
-address_t firstFit(mem_t *mp, int sz);
-address_t bestFit(mem_t *mp, int sz);
-address_t worstFit(mem_t *mp, int sz);
-// release memory that has already been allocated previously
-void myContFree(mem_t *mp, address_t p, int sz);
-// assign a value to a byte
-void myWrite(mem_t *mp, address_t p, byte_t val);
-// read memory from a byte
-byte_t myRead(mem_t *mp, address_t p);
+
+
+
 #endif
