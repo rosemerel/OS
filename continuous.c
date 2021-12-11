@@ -123,29 +123,28 @@ address_t worstFit(mem_t* mp, int sz){
     return -1;
 }
 
-
-
-
 // release memory that has already been allocated previously
 void myContFree(mem_t *mp, address_t p, int sz){
-
-    //add this hole in the list
-    hole_t* hole = mp->root;
-
-    //For each hole in the list
-    while(hole != NULL){
-        //search where is the hole into the list
-        if(hole->prev && hole->adr > p && p > hole->prev->adr){
-            insertHole(mp, hole->prev, hole, p, sz);
-            break;
-        }else if(p < hole->adr){
-            insertHole(mp, hole->prev, hole, p, sz);
-            break;
-        }
-        //go to the next hole
-        hole = hole->next;
-    }
+ 
+   hole_t* hole = mp->root;
+ 
+   //For each hole in the list
+   while(hole != NULL){
+       //search where is our hole to insert into the list
+       if(hole->prev && hole->adr > p && p > hole->prev->adr){
+           insertHole(mp, hole->prev, hole, p, sz);
+           break;
+       }else if(p < hole->adr){
+           insertHole(mp, hole->prev, hole, p, sz);
+           break;
+       }
+       //go to the next hole
+       hole = hole->next;
+   }
 }
+
+
+
 
 void insertHole(mem_t* mp, hole_t* before, hole_t* after, address_t p, int sz){
     //if the new hole is next to the after & before
@@ -173,22 +172,6 @@ void insertHole(mem_t* mp, hole_t* before, hole_t* after, address_t p, int sz){
         addHole(mp, after, p, sz);
     }
 }
-
-// assign a value to a byte
-/* void myWrite(mem_t *mp, address_t p, byte_t val){
-   if(p >= 0 && p < SIZE){
-        mp->mem[p] = val;
-   }
-}
-
-// read memory from a byte
-byte_t myRead(mem_t *mp, address_t p){
-    if(p >= 0 && p < SIZE){
-        return mp->mem[p];
-    }
-    return - 1;
-    
-} */
 
 
 //TOOLS FUNCTIONS

@@ -88,5 +88,7 @@ void displayAll(mem_t* mem){
     getchar();
     displayRAMVector(0,5, mem->RAM_vector);
     getchar();
+    display_physmem(14,27, mem->physmem);
+    getchar();
     system("clear");
 }

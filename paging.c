@@ -20,8 +20,6 @@ address_t MyAlloc(mem_t *mem, int size)
     int beginning_page = adr / PAGE_SIZE;
     int ending_page = (adr + size - 1) / PAGE_SIZE;
 
-    //!!gerer les erreurs si mémoire remplie!!
-
     //for each page used in this new allocation
     for (int i = beginning_page; i <= ending_page; ++i)
     {
@@ -74,7 +72,7 @@ void myFree(mem_t *mem, address_t adr, int size)
                 mem->RAM_vector[mem->page_table[page]] = 0;
                 mem->page_table[page] = -1;
                 //quit the while
-                exit;
+                break;
             }
             hole = hole->next;
         }
